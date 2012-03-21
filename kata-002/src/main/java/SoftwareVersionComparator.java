@@ -22,7 +22,40 @@ public class SoftwareVersionComparator implements Comparator<String> {
      */
     @Override
     public int compare(String version1, String version2) {
-        return 42; // TODO: implement me
+        
+    	/* Divido la stringa nei componenti */
+    	String[] version1Array = version1.split("\\.");
+    	String[] version2Array = version2.split("\\.");
+    	
+    	/* Ciclo sul primo array */
+    	for(int i = 0; i < version1Array.length; i++){
+    		/* Fino a questo ciclo le due versioni analizzati risultano uguali */
+    		
+    		/* Se la versione 2 contiene ancora componenti allora e' la maggiore */
+    		if(version2Array.length <= i){
+    			return 1;	
+    		}
+    		
+    		//Cosidero i numeri visto che la comparazione alfanumerica non funziona
+    		int v1 = Integer.parseInt(version1Array[i]);
+    		int v2 = Integer.parseInt(version2Array[i]);
+    		
+    		if(v1 < v2){
+    			return -1;
+    		}
+    		if(v1 > v2){
+    			return 1;
+    		}
+    	}
+    	
+    	//Alla fine dell'analisi della prima string le due risultano uguali... se la seconda ha ancora elementi la prima e' minore
+    	if(version2Array.length > version1Array.length){
+    		return -1;
+    	}
+    	
+    	//Altrimenti sono uguali
+    	return 0;
+    	
     }
-
+    
 }
